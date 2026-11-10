@@ -1,4 +1,4 @@
-from inventory import select
+from inventory import select, add
 
 while True:
     print("Это приложение нашей команды! \nПриложение, которое позволяет просматривать, добавлять, изменять, удалять и искать инвентарные записи\n")
