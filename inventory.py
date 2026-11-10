@@ -6,8 +6,6 @@ def select():
         for keys , values in products.items():
             print(f"{keys} : {values}")
 
-
-
 def generate_inventory_number(records):
     max_num = 0
     for rec in records:
@@ -26,7 +24,6 @@ def is_number_unique(records, id):
         for rec in records
     )
 
-
 def add_record(records, name, id):
     
     if not name or not name.strip():
@@ -36,9 +33,7 @@ def add_record(records, name, id):
     if not is_number_unique(records, id):
         return False, f"Запись с номером {id} уже существует."
         
-
     records.append({
-
         "id": id.strip(),
         "name": name.strip(),
     })
