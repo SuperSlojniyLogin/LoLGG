@@ -10,13 +10,11 @@ while True:
         continue
 
     if choice == 1:
-        print("Тут функция 'Посмотереть всё'\n")
         select()
-
     elif choice == 2:
         print("Тут функция 'Посмотреть один'\n")
     elif choice == 3:
-        print("Тут функция 'Добавить'\n")
+        add()
     elif choice == 4:
         print("Тут функция 'Удалить'\n")
     elif choice == 0:

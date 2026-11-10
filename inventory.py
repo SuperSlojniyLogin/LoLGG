@@ -6,10 +6,12 @@ def select():
         for keys , values in products.items():
             print(f"{keys} : {values}")
 
+
+
 def generate_inventory_number(records):
     max_num = 0
     for rec in records:
-        inv = str(rec.get("inventory_number", ""))
+        inv = str(rec.get("id", ""))
         if inv.startswith("INV-"):
             try:
                 max_num = max(max_num, int(inv.split("-")[1]))
@@ -17,27 +19,29 @@ def generate_inventory_number(records):
                 continue
     return f"INV-{max_num + 1:04d}"
 
-def is_number_unique(records, inventory_number):
+def is_number_unique(records, id):
     
     return all(
-        str(rec.get("inventory_number", "")) != str(inventory_number)
+        str(rec.get("id", "")) != str(id)
         for rec in records
     )
 
 
-def add_record(records, name, inventory_number):
+def add_record(records, name, id):
     
     if not name or not name.strip():
         return False, 
-    if not inventory_number or not inventory_number.strip():
+    if not id or not id.strip():
         return False, 
-    if not is_number_unique(records, inventory_number):
-        return False, f"Запись с номером {inventory_number} уже существует."
+    if not is_number_unique(records, id):
+        return False, f"Запись с номером {id} уже существует."
+        
+
     records.append({
+
+        "id": id.strip(),
         "name": name.strip(),
-        "inventory_number": inventory_number.strip(),
     })
-    
     return True, f"Запись '{name}' добавлена."
 
 def add():
@@ -48,10 +52,9 @@ def add():
     suggested = generate_inventory_number(records)
     print(f"Предлагаемый инвентарный номер: {suggested}")
 
-    inventory_number = input(f"Введите номер (Enter — {suggested}): ").strip() or suggested
+    id = input(f"Введите номер: ").strip() or suggested
 
-    success, message = add_record(records, name, inventory_number)
+    success, message = add_record(records, name, id)
     print(message)
-    
     if success:
         save_js(records)
