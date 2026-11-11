@@ -1,10 +1,16 @@
 [
     {
-        "id": "0001",
-        "name": "AAAA"
+        "id": "INV-0001",
+        "name": "AAAA",
+        "cabinet": "каб. 101",
+        "condition": "рабочее",
+        "responsible": "Иванов И.И."
     },
     {
-        "id": "0012",
-        "name": "Obiect"
+        "id": "INV-0012",
+        "name": "Obiect",
+        "cabinet": "каб. 102",
+        "condition": "рабочее",
+        "responsible": "Петров П.П."
     }
 ]
