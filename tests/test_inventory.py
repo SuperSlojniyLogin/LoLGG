@@ -200,7 +200,8 @@ def test_delete_record_keeps_others():
     assert success is True
     assert len(records) == 1
     assert records[0]["id"] == "INV-0002"
-    
+
+# Тест 13. Отмена удаления
 def test_delete_cancel(monkeypatch, capsys):
     import inventory
 
@@ -223,6 +224,7 @@ def test_delete_cancel(monkeypatch, capsys):
     assert len(test_data) == 1            
     assert len(saved) == 0     
 
+# Тест 14. Подтверждение удаления
 def test_delete_confirm(monkeypatch, capsys):
     import inventory
 
@@ -243,27 +245,9 @@ def test_delete_confirm(monkeypatch, capsys):
     assert "Запись INV-0001 удалена." in out
     assert len(test_data) == 0           
     assert len(saved) == 1                 
+   
 
-def test_delete_confirm(monkeypatch, capsys):
-    import inventory
-
-    test_data = [
-        {"id": "INV-0001", "name": "Ноутбук", "cabinet": "каб. 305",
-         "condition": "рабочее", "responsible": "Иванов И.И."}
-    ]
-    monkeypatch.setattr(inventory, "select_js", lambda: test_data)
-    inputs = iter(["INV-0001", "y"])
-    monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
-
-    saved = []
-    monkeypatch.setattr(inventory, "save_js", lambda data: saved.append(data))
-
-    inventory.delete()
-
-    out = capsys.readouterr().out
-    assert "Запись INV-0001 удалена." in out
-    assert len(test_data) == 0            
-    assert len(saved) == 1                 
+ # Тест 15. Повторный поиск            
 def test_search_repeat(monkeypatch, capsys):
     import inventory
 
@@ -291,4 +275,4 @@ def test_search_repeat(monkeypatch, capsys):
     # И снова существующего  состояние не сломалось
     inventory.search("INV-0001")
     out4 = capsys.readouterr().out
-    assert "id : INV-0001" in out4        
+    assert "id : INV-0001" in out4     
