@@ -1,10 +1,23 @@
 from storage import select_js, save_js
 
 def select():
-    list_js = select_js()
-    for products in list_js:
+    data = select_js()
+    for products in data:
         for keys , values in products.items():
             print(f"{keys} : {values}")
+
+
+def search(id):
+    data = select_js()
+    try:
+        obiect_js = next((d for d in data if d.get("id") == id), None)
+        for keys, values in obiect_js.items():
+            print(f"{keys} : {values}")
+    except AttributeError:
+        print("Такого инвентарный номера нет")
+
+
+
 
 def generate_inventory_number(records):
     max_num = 0
@@ -44,9 +57,9 @@ def add():
     records = select_js()
 
     name = input("Введите название объекта: ")
+
     suggested = generate_inventory_number(records)
     print(f"Предлагаемый инвентарный номер: {suggested}")
-
     id = input(f"Введите номер: ").strip() or suggested
 
     success, message = add_record(records, name, id)

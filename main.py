@@ -1,4 +1,4 @@
-from inventory import select, add
+from inventory import select, add, search
 
 while True:
     print("\nЭто приложение нашей команды! \nПриложение, которое позволяет просматривать, добавлять, изменять, удалять и искать инвентарные записи\n")
@@ -12,7 +12,8 @@ while True:
     if choice == 1:
         select()
     elif choice == 2:
-        print("Тут функция 'Посмотреть один'\n")
+        id = input("Инвентарный номер: ")
+        search(id)
     elif choice == 3:
         add()
     elif choice == 4:
