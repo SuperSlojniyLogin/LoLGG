@@ -275,4 +275,4 @@ def test_search_repeat(monkeypatch, capsys):
     # И снова существующего  состояние не сломалось
     inventory.search("INV-0001")
     out4 = capsys.readouterr().out
-    assert "id : INV-0001" in out4     
+    assert "id : INV-0001" in out4    
