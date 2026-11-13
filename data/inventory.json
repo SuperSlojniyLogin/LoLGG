@@ -1,30 +1,9 @@
 [
     {
-        "id": "INV-0001",
-        "name": "AAAA",
-        "cabinet": "каб. 101",
-        "condition": "рабочее",
-        "responsible": "Иванов И.И."
-    },
-    {
-        "id": "INV-0012",
-        "name": "Obiect",
-        "cabinet": "каб. 102",
-        "condition": "рабочее",
-        "responsible": "Петров П.П."
-    },
-    {
-        "id": "INV-0014",
-        "name": "SSS",
-        "cabinet": "543",
-        "condition": "плохо",
-        "responsible": "Иван.И.И"
-    },
-    {
-        "id": "INV-0002",
-        "name": "FFF",
-        "cabinet": "432",
-        "condition": "ужасное",
-        "responsible": "Иванович.А.Д"
+        "id": "INV-0123",
+        "name": "вввв",
+        "cabinet": "123",
+        "condition": "норм",
+        "responsible": "Утков.АД"
     }
 ]
