@@ -12,5 +12,19 @@
         "cabinet": "каб. 102",
         "condition": "рабочее",
         "responsible": "Петров П.П."
+    },
+    {
+        "id": "INV-0014",
+        "name": "SSS",
+        "cabinet": "543",
+        "condition": "плохо",
+        "responsible": "Иван.И.И"
+    },
+    {
+        "id": "INV-0002",
+        "name": "FFF",
+        "cabinet": "432",
+        "condition": "ужасное",
+        "responsible": "Иванович.А.Д"
     }
 ]

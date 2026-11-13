@@ -1,5 +1,4 @@
 import json
-import os
 filename = 'data/inventory.json'
 
 def select_js():

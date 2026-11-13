@@ -9,12 +9,16 @@ def select():
 def search(id):
     data = select_js()
     try:
-        obiect_js = next((d for d in data if d.get("id") == id), None)
-        for keys, values in obiect_js.items():
+        id = int(id.removeprefix("INV-"))
+    except (AttributeError, ValueError):
+        print("Номер это не буквы")
+        return
+    try:
+        object_js = next((d for d in data if int(d.get("id").removeprefix("INV-")) == id), None)
+        for keys, values in object_js.items():
             print(f"{keys} : {values}")
     except AttributeError:
         print("Такого инвентарный номера нет")
-
 
 
 
@@ -30,14 +34,15 @@ def generate_inventory_number(records):
     return f"INV-{max_num + 1:04d}"
 
 def is_number_unique(records, id):
-    
+
     return all(
-        str(rec.get("id", "")) != str(id)
+        rec.get("id", "") != id
         for rec in records
     )
 
 
 def add_record(records, name, id, cabinet, condition, responsible):
+
     if not name or not name.strip():
         return False, "Строка не может остаться пустой."
     if not id or not id.strip():
@@ -48,17 +53,22 @@ def add_record(records, name, id, cabinet, condition, responsible):
         return False, "Строка не может остаться пустой."
     if not responsible or not responsible.strip():
         return False, "Строка не может остаться пустой."
+    try:
+        id = f"INV-{int(id.strip().removeprefix('INV-')):04d}"
+    except (AttributeError, ValueError):
+        return False, "Номер должен содержать только цифры."
     if not is_number_unique(records, id):
         return False, f"Запись с номером {id} уже существует."
 
     records.append({
-        "id": id.strip(),
+        "id": id,
         "name": name.strip(),
         "cabinet": cabinet.strip(),
         "condition": condition.strip(),
         "responsible": responsible.strip(),
     })
     return True, f"Запись '{name}' добавлена."
+
 
 def add():
 
