@@ -77,6 +77,11 @@ def is_number_unique(records, id):
         for rec in records
     )
 
+cond = {
+        "1": "исправно",
+        "2": "требует ремонта",
+        "3": "списано",
+    }
 
 def add_record(records, name, id, cabinet, condition, responsible):
 
@@ -93,8 +98,16 @@ def add_record(records, name, id, cabinet, condition, responsible):
         return False, "Кабинет должен содержать только цифры."
     if not condition or not condition.strip():
         return False, "Строка не может остаться пустой."
+    condition = condition.strip().lower()
+    if condition not in cond.keys() and condition not in cond.values():
+        return False, "Нет такого состояния"
+    else:
+        if condition in cond.keys():
+            condition = cond[condition]
+
     if not responsible or not responsible.strip():
         return False, "Строка не может остаться пустой."
+
     try:
         id = f"INV-{int(id.strip().removeprefix('INV-')):04d}"
     except (AttributeError, ValueError):
@@ -123,6 +136,7 @@ def add():
     id = input(f"Введите номер: ").strip() or suggested
 
     cabinet = input("Введите кабинет: ")
+    print("Варианты состояния 1.Исправно - 2.Требует ремонта - 3.Списано")
     condition = input("Введите состояние: ")
     responsible = input("Введите ответственное лицо: ")
 
@@ -148,7 +162,15 @@ def update_record(records, id, name=None, cabinet=None, condition=None, responsi
                     return False, "Кабинет должен содержать только цифры."
                 rec["cabinet"] = cabinet.strip()
             if condition and condition.strip():
-                rec["condition"] = condition.strip()
+                condition = condition.strip().lower()
+                if condition not in cond.keys() and condition not in cond.values():
+                    return False, "Нет такого состояния"
+                else:
+                    if condition in cond.keys():
+                        rec["condition"] = cond[condition]
+                    else:
+                        rec["condition"] = condition
+
             if responsible and responsible.strip():
                 rec["responsible"] = responsible.strip()
             return True, f"Запись {id} обновлена."
