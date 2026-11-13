@@ -6,7 +6,6 @@ def select():
         for keys , values in products.items():
             print(f"{keys} : {values}")
 
-
 def search(id):
     data = select_js()
     try:
