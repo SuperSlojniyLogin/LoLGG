@@ -35,10 +35,38 @@
 
 ## User Stories и критерии приёмки
 
-### Поля записи
 
 ### Пример файла `data/inventory.json`
-
+[
+    {
+        "id": "INV-0001",
+        "name": "AAAA",
+        "cabinet": "каб. 101",
+        "condition": "рабочее",
+        "responsible": "Иванов И.И."
+    },
+    {
+        "id": "INV-0012",
+        "name": "Obiect",
+        "cabinet": "каб. 102",
+        "condition": "рабочее",
+        "responsible": "Петров П.П."
+    },
+    {
+        "id": "INT-0013",
+        "name": "44",
+        "cabinet": "33",
+        "condition": "222",
+        "responsible": "увв"
+    },
+    {
+        "id": "INT-0001",
+        "name": "33333",
+        "cabinet": "32",
+        "condition": "sdfcsd",
+        "responsible": "sf"
+    }
+]
 
 ## Пользовательские сценарии
 
