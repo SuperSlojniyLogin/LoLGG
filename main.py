@@ -1,4 +1,4 @@
-from inventory import select, add, search, update, delete
+from inventory import select, add, search
 
 while True:
     print("\nПривет! Это приложение нашей команды!")
