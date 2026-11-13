@@ -2,11 +2,48 @@ from storage import select_js, save_js
 
 def select():
     data = select_js()
+    if not data:
+        print("Список записей пуст.")
+        return
     for products in data:
         for keys , values in products.items():
             print(f"{keys} : {values}")
 
-def search(id):
+def search():
+    print("Ищите по \n1.кабинету\nили\n2.Инвентарному номеру")
+    choice = input("1 или 2: ").strip()
+    if choice == "1":
+        kab = input("Какой кабинет: ")
+        search_kab(kab)
+    elif choice == "2":
+        id = input("Какой инвентарный номер: ")
+        search_id(id)
+    else:
+        print("Введите число 1 или 2")
+
+
+def search_kab(kab):
+    data = select_js()
+    kab = str(kab).strip()
+    try:
+        if not (1 <= int(kab) <= 499):
+            print("нет такого кабинета")
+            return
+    except (AttributeError, ValueError):
+        print("Кабинет должен содержать только цифры.")
+        return
+
+    found_items = [d for d in data if d.get("cabinet") == kab]
+
+    if not found_items:
+        print("В этом кабинете ничего нет")
+        return
+
+    for item in found_items:
+        for keys, values in item.items():
+            print(f"{keys} : {values}")
+
+def search_id(id):
     data = select_js()
     try:
         id = int(id.removeprefix("INV-"))
@@ -49,6 +86,11 @@ def add_record(records, name, id, cabinet, condition, responsible):
         return False, "Строка не может остаться пустой."
     if not cabinet or not cabinet.strip():
         return False, "Строка не может остаться пустой."
+    try:
+        if not (1 <= int(cabinet) <= 499):
+            return False, "нет такого кабинета"
+    except (AttributeError, ValueError):
+        return False, "Кабинет должен содержать только цифры."
     if not condition or not condition.strip():
         return False, "Строка не может остаться пустой."
     if not responsible or not responsible.strip():
@@ -99,6 +141,11 @@ def update_record(records, id, name=None, cabinet=None, condition=None, responsi
             if name and name.strip():
                 rec["name"] = name.strip()
             if cabinet and cabinet.strip():
+                try:
+                    if not (1 <= int(cabinet) <= 499):
+                        return False, "Номер кабинета должен быть от 1 до 499."
+                except ValueError:
+                    return False, "Кабинет должен содержать только цифры."
                 rec["cabinet"] = cabinet.strip()
             if condition and condition.strip():
                 rec["condition"] = condition.strip()
@@ -112,6 +159,11 @@ def update():
     records = select_js()
 
     id = input("Введите номер записи для изменения: ").strip()
+    try:
+        id = f"INV-{int(id.strip().removeprefix('INV-')):04d}"
+    except ValueError:
+        print("Номер должен содержать только цифры.")
+        return
     #Показывает текущие значения записи, но скорее просто ищет её, а уже ниже показывает
     current = next((r for r in records if str(r.get("id")) == str(id)), None)
     if current is None:
@@ -143,7 +195,11 @@ def delete():
     records = select_js()
 
     id = input("Введите номер записи для удаления: ").strip()
-
+    try:
+        id = f"INV-{int(id.removeprefix('INV-')):04d}"
+    except ValueError:
+        print("Номер должен содержать только цифры.")
+        return
     current = next((r for r in records if str(r.get("id")) == str(id)), None)
     if current is None:
         print(f"Запись с номером {id} не найдена.")
